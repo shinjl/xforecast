@@ -4,7 +4,7 @@
         <nav>
             <ul class="navigation">
                 <li>
-                    <a href="https://github.com/shinjl" title="Github"
+                    <a href="https://github.com/shinjl/xforecast" title="Github"
                         ><img class="header-link" src="/images/github.svg" alt="GitHub" /></a
                     >
                 </li>
