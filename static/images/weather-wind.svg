@@ -1,0 +1,15 @@
+<svg width="192" height="128" viewBox="0 0 192 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M0 64H157.431" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+<path d="M15.8832 48.1168H88.7591" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+<path d="M31.7665 79.8832H120.058" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+<path d="M99.6951 94.9994C99.0752 97.0142 98.7412 99.1542 98.7412 101.372C98.7412 113.322 108.428 123.009 120.378 123.009C132.328 123.009 142.015 113.322 142.015 101.372C142.015 89.4229 132.168 79.8832 120.218 79.8832" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+<path d="M128.509 41.415C127.975 39.1956 127.693 36.8785 127.693 34.4955C127.693 18.2008 140.903 4.99107 157.198 4.99107C173.492 4.99107 186.702 18.2008 186.702 34.4955C186.702 50.7903 173.492 64 157.197 64" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+<path d="M69.5633 31.9944C69.3891 30.9527 69.2985 29.8824 69.2985 28.7911C69.2985 18.1391 77.9333 9.50424 88.5854 9.50424C99.2374 9.50424 107.872 18.1391 107.872 28.7911C107.872 39.4432 99.2374 48.078 88.5854 48.078" stroke="#2B2B2B" stroke-width="10" stroke-miterlimit="10"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="191.533" height="128" fill="white"/>
+</clipPath>
+</defs>
+</svg>
