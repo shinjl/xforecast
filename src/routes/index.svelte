@@ -222,6 +222,8 @@
         justify-content: space-between;
         margin: 0 auto;
         max-width: 1200px;
+        min-width: 600px;
+        padding: 0 1rem;
     }
 
     .info {
@@ -237,6 +239,22 @@
         grid-template-rows: 100px repeat(5, 45px);
         align-items: center;
         margin: 0 3rem 0 1rem;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .info {
+            flex-direction: column;
+        }
+
+        .current {
+            margin: 0 6rem;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .current {
+            margin: 0 1rem;
+        }
     }
 
     .current-weather {

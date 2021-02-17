@@ -23,10 +23,12 @@
         background: #f65751;
         padding: 1rem 0;
         margin-bottom: 1.5rem;
+        min-width: 600px;
     }
 
     .header-container {
         margin: 0 auto;
+        padding: 0 1rem;
         max-width: 1200px;
         display: flex;
         justify-content: space-between;
