@@ -2,7 +2,7 @@
 
 <img align="right" width="64" height="64" src="./static/images/logo.png">
 
-xForecast, is a simple weather forecast app built on Svelte. Provides location based weather forecast with one click. Click [this site](http://xforecast.shinjl.com) for more detail.
+xForecast, is a simple weather forecast app built on Svelte. Provides location based weather forecast with one click. Check [this site](http://xforecast.shinjl.com) for more detail.
 
 ## Developing
 
