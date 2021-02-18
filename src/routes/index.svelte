@@ -6,7 +6,8 @@
     import Header from '$components/Header.svelte';
     import Footer from '$components/Footer.svelte';
 
-    const baseUrl = 'https://xforecast-server.herokuapp.com';
+    const xForecastServerUrl = 'https://xforecast-server.herokuapp.com';
+    const xCityFinderServerUrl = 'https://xcity-finder.herokuapp.com';
 
     let loading = true;
     let currentWeather: any = {};
@@ -17,15 +18,51 @@
         lat: 35.689499,
         lon: 139.691711,
     };
+    let historyState = {
+        city: '',
+    };
 
     /**
-     * Initialize: shows weather based on user location (GeoIP)
+     * Initialize map and graph
      */
     const initialize = async () => {
         loading = true;
-        const data: any = await fetchData();
-        await convertData(data);
+        await refreshDataFromUrl();
         loading = false;
+
+        window.onpopstate = async (event: any) => {
+            if (event.state) {
+                historyState.city = event.state.city;
+                searchText = historyState.city;
+            }
+            await refreshDataFromUrl();
+        };
+    };
+
+    /**
+     * Get location from browser URL and get forecast data
+     * if no parameter is specified, shows data based on user location (GeoIP)
+     */
+    const refreshDataFromUrl = async () => {
+        const parsedUrl = new URL(window.location.href);
+        const latFromUrl = parsedUrl.searchParams.get('lat');
+        const lonFromUrl = parsedUrl.searchParams.get('lon');
+        let fetchUrl = null;
+        if (latFromUrl != null && lonFromUrl != null) {
+            myLocation.lat = Number(latFromUrl);
+            myLocation.lon = Number(lonFromUrl);
+            fetchUrl = `${xForecastServerUrl}/location/?lat=${myLocation.lat}&lon=${myLocation.lon}`;
+        } else {
+            fetchUrl = xForecastServerUrl;
+        }
+        window.history.replaceState(historyState, null, '');
+
+        const data: any = await fetchData(fetchUrl);
+        await convertData(data);
+        if (data.location) {
+            myLocation.lat = Number(data.location.lat);
+            myLocation.lon = Number(data.location.lon);
+        }
     };
 
     /**
@@ -99,7 +136,7 @@
      * Fetch data from server
      * @param url fetch URL
      */
-    const fetchData = async (url: string = baseUrl) => {
+    const fetchData = async (url) => {
         try {
             const response = await fetch(url);
             return await response.json();
@@ -110,27 +147,39 @@
     };
 
     /**
+     * Update browser history
+     */
+    const history = (lat: number, lon: number, city: string) => {
+        historyState.city = city;
+        window.history.pushState(historyState, null, `?lat=${lat}&lon=${lon}`);
+    };
+
+    /**
      * Get weather data from the selected location
      */
     const locationChange = async ({ detail: { lat, lon } }) => {
         loading = true;
-        const data = await fetchData(`${baseUrl}/location/?lat=${lat}&lon=${lon}`);
+        const data = await fetchData(`${xForecastServerUrl}/location/?lat=${lat}&lon=${lon}`);
         convertData(data);
         searchText = '';
         loading = false;
+
+        history(lat, lon, '');
     };
 
     /**
      * Get weather data from the selected city
      */
-    const searchChange = async ({ detail: { lat, lon } }) => {
+    const searchChange = async ({ detail: { lat, lon, city } }) => {
         loading = true;
-        const data = await fetchData(`${baseUrl}/location/?lat=${lat}&lon=${lon}`);
+        const data = await fetchData(`${xForecastServerUrl}/location/?lat=${lat}&lon=${lon}`);
         convertData(data);
 
         myLocation.lat = lat;
         myLocation.lon = lon;
         loading = false;
+
+        history(lat, lon, city);
     };
 
     onMount(initialize);
@@ -202,7 +251,7 @@
             <div class="text" contenteditable="true" bind:innerHTML={currentWeather.snow} />
         </div>
         <div class="map">
-            <XSearch searchUrl={`${baseUrl}/cities`} on:searchChange={searchChange} bind:searchText />
+            <XSearch searchUrl={`${xCityFinderServerUrl}/cities`} on:searchChange={searchChange} bind:searchText />
             <XMap on:locationChange={locationChange} {myLocation} />
         </div>
     </div>

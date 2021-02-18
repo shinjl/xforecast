@@ -30,7 +30,7 @@
         autocomplete({
             input: searchInput,
             emptyMsg: 'No matching items found',
-            minLength: 3,
+            minLength: 2,
             fetch: async (text: any, update: any) => {
                 text = text.toLowerCase();
                 const data = await fetchData(text);
@@ -38,7 +38,7 @@
             },
             onSelect: (item: any) => {
                 searchInput.value = item.label;
-                dispatch('searchChange', { lat: item.lat, lon: item.lon });
+                dispatch('searchChange', { lat: item.lat, lon: item.lon, city: searchInput.value });
             },
         });
     };
